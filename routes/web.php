@@ -26,12 +26,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [BookController::class, 'index'])->name('dashboard');
     Route::get('/books', [BookController::class, 'index'])->name('books.index');
     Route::get('/list', [BookController::class, 'list']);
     Route::post('/save', [BookController::class, 'store'])->name('books.store');

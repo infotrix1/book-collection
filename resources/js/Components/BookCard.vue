@@ -1,27 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import axios from 'axios'; // Ensure axios is imported
+import BookImg from '@/Assets/book.jpg';
 
-const books = ref([]);
-
-const fetchBooks = async () => {
-  try {
-    const { data } = await axios.get('/list');
-    books.value = data.books.data;
-    console.log(books.value);
-  } catch (error) {
-    console.error('Error fetching books:', error);
-  }
-};
-
-onMounted(() => {
-  fetchBooks();
+const props = defineProps({
+  book: {
+    type: Object,
+    required: true,
+  },
 });
 
 const emit = defineEmits<{
-  (e: 'edit', book: any): void;
-  (e: 'delete', id: string): void;
+  (event: 'edit', book: any): void;
 }>();
 
 const statusColors = {
@@ -37,17 +27,13 @@ const handleDelete = (id: string) => {
 };
 
 const handleEdit = (book: any) => {
-  emit('edit', book);
+  emit('edit', book);  
 };
 </script>
 
 <template>
-  <div
-    v-for="book in books" 
-    :key="book.id"
-    class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105"
-  >
-    <img :src="book.coverUrl" :alt="book.title" class="w-full h-48 object-cover" />
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105">
+    <img :src="BookImg" :alt="book.title" class="w-full h-48 object-cover" />
     <div class="p-4">
       <div class="flex justify-between items-start mb-2">
         <h3 class="text-xl font-semibold text-gray-800">{{ book.title }}</h3>

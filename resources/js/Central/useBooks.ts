@@ -2,14 +2,11 @@ import { ref, computed, watch } from 'vue';
 import axios from 'axios';
 
 const books = ref([]);
-const selectedStatus = ref('');
 const isModalOpen = ref(false);
 const editingBook = ref(null);
 
 const fetchBooks = async () => {
-  const { data } = await axios.get('/list', {
-    params: { status: selectedStatus.value },
-  });
+  const { data } = await axios.get('/list');
   books.value = data.books;
 };
 
@@ -40,12 +37,10 @@ const closeModal = () => {
   isModalOpen.value = false;
 };
 
-watch(selectedStatus, fetchBooks, { immediate: true });
 
 export const useBooks = () => ({
   books,
   filteredBooks: computed(() => books.value),
-  selectedStatus,
   isModalOpen,
   editingBook,
   fetchBooks,

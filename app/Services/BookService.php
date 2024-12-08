@@ -1,7 +1,5 @@
 <?php
 
-// app/Services/BookService.php
-
 namespace App\Services;
 
 use App\Repositories\BookRepository;

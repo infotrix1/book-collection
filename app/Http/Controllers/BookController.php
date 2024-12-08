@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/BookController.php
-
 namespace App\Http\Controllers;
 
 use App\Services\BookService;

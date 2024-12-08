@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 
-// Define props without type definitions
 const props = defineProps<{
   show: boolean;
   editingBook: {
@@ -24,7 +23,7 @@ const formData = ref({
   title: '',
   author: '',
   description: '',
-  published_year: new Date().getFullYear(), // Changed from publishedYear to published_year
+  published_year: new Date().getFullYear(), 
   status: 'available' as 'available' | 'borrowed' | 'reserved',
 });
 
@@ -38,19 +37,19 @@ watch(() => props.editingBook, (newBook) => {
       title: '',
       author: '',
       description: '',
-      published_year: new Date().getFullYear(), // Changed from publishedYear to published_year
+      published_year: new Date().getFullYear(), 
       status: 'available',
     };
   }
 }, { immediate: true });
 
 const handleSubmit = () => {
-  const method = props.editingBook ? 'put' : 'post';  // Update or Create
+  const method = props.editingBook ? 'put' : 'post';  
   const url = props.editingBook
     ? route('books.update', props.editingBook.id)
-    : route('books.store');  // Use Laravel route names
+    : route('books.store');  
 
-  Inertia[method](url, formData.value);  // Make the API request via Inertia
+  Inertia[method](url, formData.value);  
 
   emit('close');
 };

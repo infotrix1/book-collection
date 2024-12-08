@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('published_year');
             $table->enum('status', ['available', 'borrowed', 'reserved'])->default('reserved');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

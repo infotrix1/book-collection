@@ -26,13 +26,13 @@ class BookService
         return $this->bookRepository->createBook($data);
     }
 
-    public function update(Book $book, array $data)
+    public function update($id, array $data)
     {
-        return $this->bookRepository->updateBook($book, $data);
+        return $this->bookRepository->updateBook($id, $data);
     }
 
-    public function delete(Book $book)
+    public function delete($request)
     {
-        return $this->bookRepository->deleteBook($book);
+        return $this->bookRepository->deleteBook($request->id);
     }
 }

@@ -26,14 +26,15 @@ class BookRepository
         return Book::create($data);
     }
 
-    public function updateBook(Book $book, array $data)
+    public function updateBook($id, array $data)
     {
-        $book->update($data);
+        $book = Book::where('id',$id)->update($data);
         return $book;
     }
 
-    public function deleteBook(Book $book)
+    public function deleteBook($id)
     {
+        $book = Book::find($id);
         $book->delete();
     }
 }

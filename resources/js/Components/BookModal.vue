@@ -10,7 +10,6 @@ const props = defineProps<{
     title: string;
     author: string;
     description: string;
-    coverUrl: string;
     published_year: number;
     status: 'available' | 'borrowed' | 'reserved';
   } | null;
@@ -18,14 +17,13 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'close'): void;
-  (e: 'save', book: { id?: string; title: string; author: string; description: string; coverUrl: string; published_year: number; status: 'available' | 'borrowed' | 'reserved' }): void;
+  (e: 'save', book: { id?: string; title: string; author: string; description: string; published_year: number; status: 'available' | 'borrowed' | 'reserved' }): void;
 }>();
 
 const formData = ref({
   title: '',
   author: '',
   description: '',
-  coverUrl: '',
   published_year: new Date().getFullYear(), // Changed from publishedYear to published_year
   status: 'available' as 'available' | 'borrowed' | 'reserved',
 });
@@ -40,7 +38,6 @@ watch(() => props.editingBook, (newBook) => {
       title: '',
       author: '',
       description: '',
-      coverUrl: '',
       published_year: new Date().getFullYear(), // Changed from publishedYear to published_year
       status: 'available',
     };
@@ -92,15 +89,6 @@ const handleSubmit = () => {
             rows="3"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           ></textarea>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Cover URL</label>
-          <input
-            v-model="formData.coverUrl"
-            type="url"
-            required
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          />
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700">Published Year</label>

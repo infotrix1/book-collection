@@ -54,7 +54,7 @@ class BookController extends Controller
         ]);
     }
 
-    public function update(Request $request, Book $book)
+    public function update(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -64,14 +64,24 @@ class BookController extends Controller
             'status' => 'required|in:available,borrowed,reserved',
         ]);
 
-        $this->bookService->update($book, $request->all());
+        $id = $request->get('id');
+
+        $data = [
+            'title' => $request->get('title'),
+            'author' => $request->get('author'),
+            'description' => $request->get('description'),
+            'published_year' => $request->get('published_year'),
+            'status' => $request->get('status')
+        ];
+
+        $this->bookService->update($id, $data);
 
         return redirect()->route('books.index');
     }
 
-    public function destroy(Book $book)
+    public function destroy(Request $request)
     {
-        $this->bookService->delete($book);
+        $this->bookService->delete($request);
 
         return redirect()->route('books.index');
     }
